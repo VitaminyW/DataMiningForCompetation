@@ -18,15 +18,17 @@ def threadWork2(key):
         if index % 1000 == 0:
             print(key, str(index / len(set_temp)))
         freCount[key].append([item, clazz[key].count(item)])
-    with open(r'E:\Download\数据大赛\选题1\第二部分分词\0-%s.json' % key, 'w', encoding='gb18030') as f:
+    with open(r'E:\Download\数据大赛\选题1\第二部分分词\5-%s.json' % key, 'w', encoding='gb18030') as f:
         json.dump(freCount, f)
     print(key, 'DONE')
 
 
-with open(r'E:\Download\数据大赛\选题1\第二部分分词\0.txt', encoding='gb18030') as f:
+with open(r'E:\Download\数据大赛\选题1\第二部分分词\5.txt', encoding='gb18030') as f:
     data = f.read()
+print("read DONE")
 data = data.split('\n')
 data = [item.split('\t') for item in data[:-1]]
+print("split DONE")
 clazz = {'negative': [], 'neutral': [], 'positive': []}
 for item in tqdm(data):
     try:
@@ -35,6 +37,9 @@ for item in tqdm(data):
         continue
 
 if __name__ == '__main__':
+    # threadWork2('negative')
+    # threadWork2('neutral')
+    # threadWork2('positive')
     thread1 = Process(target=threadWork2, args=('negative',))
     thread2 = Process(target=threadWork2, args=('neutral',))
     thread3 = Process(target=threadWork2, args=('positive',))
